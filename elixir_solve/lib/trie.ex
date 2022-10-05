@@ -1,6 +1,10 @@
 # https://leetcode.com/problems/implement-trie-prefix-tree/
 # https://leetcode.com/submissions/detail/815807382/
 
+# 했던실수
+# 기존 저장되어있는 단어에 대해 replace시, 기존 단어를 지우지 않음.
+# 입력순예시: (hello -> hel)
+
 defmodule Trie do
   @spec init_() :: any
   def init_() do
