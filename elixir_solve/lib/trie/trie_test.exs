@@ -122,7 +122,6 @@ defmodule Trie.Tests do
   describe "Trie init test" do
     test "Trie init!" do
       Trie.init_()
-      assert Trie.search("a")
       word_list = ["hello", "hello_parser", "hel", "hello_ppppp", "world", "hwp"]
       word_list |> Enum.map(&Trie.insert(&1))
 
