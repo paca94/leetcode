@@ -40,8 +40,9 @@ defmodule Trie.Tests do
   end
 
   test "insert tets" do
-    word_list = ["hello", "hello_parser", "hel", "hello_ppppp", "world"]
+    word_list = ["hello", "hello_parser", "hel", "hello_ppppp", "world", "her"]
     base = word_list |> Enum.reduce(%Trie.Word{}, &Trie.Logic.insert(&2, &1))
+    IO.puts(inspect(base))
 
     word_list
     |> Enum.map(fn word ->
@@ -104,6 +105,84 @@ defmodule Trie.Tests do
                   }
                 }
               }
+            }
+          }
+        },
+        "world" => %Trie.Word{
+          keyword: "world",
+          origin_word: "world",
+          is_complete_word: true,
+          head_keyset: MapSet.new([]),
+          head_keyset_mapping: %{},
+          store: %{}
+        }
+      }
+    }
+
+    t2 = %Trie.Word{
+      keyword: nil,
+      origin_word: nil,
+      is_complete_word: false,
+      head_keyset: MapSet.new(["h", "w"]),
+      head_keyset_mapping: %{"h" => "he", "w" => "world"},
+      store: %{
+        "he" => %Trie.Word{
+          keyword: "he",
+          origin_word: nil,
+          is_complete_word: false,
+          head_keyset: MapSet.new(["l", "r"]),
+          head_keyset_mapping: %{"l" => "l", "r" => "r"},
+          store: %{
+            "l" => %Trie.Word{
+              keyword: "l",
+              origin_word: "hel",
+              is_complete_word: true,
+              head_keyset: MapSet.new(["l"]),
+              head_keyset_mapping: %{"l" => "lo"},
+              store: %{
+                "lo" => %Trie.Word{
+                  keyword: "lo",
+                  origin_word: "hello",
+                  is_complete_word: true,
+                  head_keyset: MapSet.new(["_"]),
+                  head_keyset_mapping: %{"_" => "_p"},
+                  store: %{
+                    "_p" => %Trie.Word{
+                      keyword: "_p",
+                      origin_word: nil,
+                      is_complete_word: false,
+                      head_keyset: MapSet.new(["a", "p"]),
+                      head_keyset_mapping: %{"a" => "arser", "p" => "pppp"},
+                      store: %{
+                        "arser" => %Trie.Word{
+                          keyword: "arser",
+                          origin_word: "hello_parser",
+                          is_complete_word: true,
+                          head_keyset: MapSet.new([]),
+                          head_keyset_mapping: %{},
+                          store: %{}
+                        },
+                        "pppp" => %Trie.Word{
+                          keyword: "pppp",
+                          origin_word: "hello_ppppp",
+                          is_complete_word: true,
+                          head_keyset: MapSet.new([]),
+                          head_keyset_mapping: %{},
+                          store: %{}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "r" => %Trie.Word{
+              keyword: "r",
+              origin_word: "her",
+              is_complete_word: true,
+              head_keyset: MapSet.new([]),
+              head_keyset_mapping: %{},
+              store: %{}
             }
           }
         },
